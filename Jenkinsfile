@@ -10,6 +10,8 @@ pipeline {
     environment {
         app = "variable"
         GRADLE_HOME = tool 'Gradle'
+         JAVA_HOME = tool name: 'JDK', type: 'JDK'
+         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages {
