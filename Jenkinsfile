@@ -1,6 +1,5 @@
 import groovy.json.JsonSlurperClassic
 
-// Método para parsear JSON
 def jsonParse(def json) {
     return new JsonSlurperClassic().parseText(json)
 }
@@ -9,8 +8,8 @@ pipeline {
     agent any
 
     environment {
-        app = "variable"  // Definir una variable de entorno
-        GRADLE_HOME = tool 'Gradle'  // Definir la variable de entorno GRADLE_HOME
+        app = "variable"
+        GRADLE_HOME = tool 'Gradle'
     }
 
     stages {
@@ -18,7 +17,7 @@ pipeline {
             steps {
                 echo 'Construyendo el proyecto...'
                 script {
-                    bat "${GRADLE_HOME}\\gradle build"  // Ejecutar el comando Gradle en Windows
+                    bat "${GRADLE_HOME}\\gradle clean build"
                 }
             }
         }
