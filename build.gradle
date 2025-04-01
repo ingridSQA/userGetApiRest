@@ -1,0 +1,55 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-single-page-report:3.3.0"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.4.2"
+    }
+}
+
+plugins {
+    id "net.serenity-bdd.serenity-gradle-plugin" version "3.3.0"
+    id 'java'
+}
+
+defaultTasks 'clear', 'test', 'aggregate'
+group 'com.demoblaze'
+version '1.0-SNAPSHOT'
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation 'net.serenity-bdd:serenity-junit5:3.3.0'
+    implementation 'net.serenity-bdd:serenity-cucumber:3.6.0'
+    implementation 'net.serenity-bdd:serenity-core:3.6.0'
+
+
+    implementation 'net.serenity-bdd:serenity-screenplay-rest:3.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+serenity{
+    testRoot="io.bookcart.swagger.runners"
+    requirementsBaseDir=["src/test/resources/features/"]
+    reports=["single-page-html"]
+}
+
+gradle.startParameter.continueOnFailure = true
+test.finalizedBy(aggregate)
